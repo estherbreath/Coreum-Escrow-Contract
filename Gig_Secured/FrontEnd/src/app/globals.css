@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geostar&family=Montserrat&family=Orbitron:wght@400;600&family=Space+Grotesk&family=Space+Mono&display=swap');
+
+.mono {
+  font-family: 'Space Mono', monospace;
+}
+
+.funda_bg {
+  background: linear-gradient(180deg, #69b5ff 0%, #d2e9ff 100%);
+}
+
+.mono {
+  font-family: 'Space Mono', monospace;
+}
+
+html,
+body,
+main {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Space Mono', monospace;
+}
+
+.geostar_font {
+  font-family: 'Geostar', monospace;
+}
+
+.grotesk_font {
+  font-family: 'Grotesk', monospace;
+}
+
+.orbitron_font {
+  font-family: 'Orbitron', monospace;
+}
+
+.mono_font {
+  font-family: 'Space Mono', monospace;
+}
+
+.logo {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.head1 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.head2 {
+  font-family: 'Space Mono', monospace;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.transaction-card {
+  border-radius: 8px;
+  background: linear-gradient(
+    95deg,
+    rgba(210, 233, 255, 0.6) 0%,
+    rgba(210, 233, 255, 0.3) 100%
+  );
+}
+
+.fund_wallet_id_bg {
+  border-radius: 8px;
+  border: 2px solid var(--blue-80, #0f4880);
+  background: linear-gradient(
+    180deg,
+    rgba(15, 72, 128, 0.3) 0%,
+    rgba(210, 233, 255, 0.7) 100%
+  );
+}
+
+.fund_from_card {
+  border-radius: 16px;
+  background: linear-gradient(180deg, #69b5ff 0%, #d2e9ff 100%);
+}
+
+.personal_savings_card {
+  border-radius: 8px;
+  border: 1px solid #2a0fb1;
+  /* background: var(--Light, #FEFEFE); */
+}
+.public_savings_bg {
+  border-radius: 8px;
+  border: 1px solid #2a0fb1;
+  /* background: var(--Light, #FEFEFE); */
+}
+
+.savings_club {
+  border-radius: 8px;
+  border: 1px solid #c27810;
+  background: var(--Light, #fefefe);
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+input {
+  background: white;
+}
+
+main {
+  scroll-snap-type: y mandatory;
+}
+
+.section1,
+.section2,
+.section3,
+.section4 {
+  scroll-snap-align: start;
+}

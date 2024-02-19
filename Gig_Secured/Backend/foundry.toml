@@ -1,0 +1,15 @@
+[profile.default]
+src = "src"
+solc = "0.8.20"
+out = "out"
+libs = ["lib"]
+libraries = ["src/library/EscrowLibrary.sol:EscrowUtils:0xFc84ceb72b62a7885124689e6ce615154CA04717"]
+
+[rpc_endpoints]
+goerli = "${GOERLI_RPC_URL}"
+
+[etherscan]
+goerli = { key = "${ETHERSCAN_API_KEY}" }
+
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

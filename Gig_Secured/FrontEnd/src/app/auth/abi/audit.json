@@ -1,0 +1,540 @@
+[
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [],
+        "name": "AlreadyConfirmed",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "AuditorHasCurrentTasks",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "AuditorNotFound",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "CategoryNotFound",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ExceededMaximumCategory",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "GigsExceeded",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "NoAvailableAuditor",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "NoConfirmedAuditors",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "NoGigForAuditor",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "NotOwner",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "OnlyContractAreAllowed",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "OnlyEoa",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "OnlyGovernanceAllowed",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ZeroAddress",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "onlyGigContractAllowed",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "confirmedAuditor",
+                "type": "address"
+            }
+        ],
+        "name": "AuditorConfirmed",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "removedAuditor",
+                "type": "address"
+            }
+        ],
+        "name": "AuditorRemoved",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "selectedAuditor",
+                "type": "address"
+            }
+        ],
+        "name": "AuditorSelected",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_auditorAdmin",
+                "type": "address"
+            }
+        ],
+        "name": "addAuditorAdmin",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "childContractAddress",
+                "type": "address"
+            }
+        ],
+        "name": "addGigContractAddresses",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "auditor_",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "category",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "email",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "_auditor",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "currentGigs",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "isConfirmed",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint256",
+                "name": "confirmationTime",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "auditors",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "category",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "email",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "_auditor",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "currentGigs",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "isConfirmed",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint256",
+                "name": "confirmationTime",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "auditorsByCategory",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "category",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "email",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "_auditor",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "currentGigs",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "isConfirmed",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint256",
+                "name": "confirmationTime",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "auditorsCount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_category",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_email",
+                "type": "string"
+            }
+        ],
+        "name": "becomeAuditor",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_auditor",
+                "type": "address"
+            }
+        ],
+        "name": "checkAuditorStatus",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "isAuditorConfirmed",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_auditorAddr",
+                "type": "address"
+            }
+        ],
+        "name": "confirmAuditor",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_auditor",
+                "type": "address"
+            }
+        ],
+        "name": "decreaseAuditorCurrentGigs",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_auditor",
+                "type": "address"
+            }
+        ],
+        "name": "getAuditorByAddress",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "category",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "email",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "_auditor",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "currentGigs",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "isConfirmed",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "confirmationTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "address",
+                                "name": "contractInstance",
+                                "type": "address"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "id",
+                                "type": "uint256"
+                            }
+                        ],
+                        "internalType": "struct Audit.AuditorContracts[]",
+                        "name": "contractsAddress",
+                        "type": "tuple[]"
+                    }
+                ],
+                "internalType": "struct Audit.Auditor",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_category",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "ranNum",
+                "type": "uint256"
+            }
+        ],
+        "name": "getAuditorByCategory",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "gigContractAddresses",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_auditor",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_gigContract",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_gigId",
+                "type": "uint256"
+            }
+        ],
+        "name": "increaseAuditorCurrentGigs",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "makeGovernanceAuditor",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "returnSelectedAuditor",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "selectedAuditor",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_governance",
+                "type": "address"
+            }
+        ],
+        "name": "setGovernanceContract",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]

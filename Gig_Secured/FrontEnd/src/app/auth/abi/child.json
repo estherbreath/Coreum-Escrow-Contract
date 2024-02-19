@@ -1,0 +1,729 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "auditContract",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "governance",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "usdcAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "AlreadyInDispute",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "AtLeastAnHour",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ContractSettlementTimeNotActive",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DeadlineHasPassedForBuilding",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DeadlineHasPassedForCompletion",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newDeadline",
+        "type": "uint256"
+      }
+    ],
+    "name": "DeadlineInPast",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DuplicateEmails",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "EmptyCategory",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "EmptyProjectLink",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "EmptyTitle",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "FreelancerSignedAlready",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "freeLancer",
+        "type": "address"
+      }
+    ],
+    "name": "InvalidFreelancer",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidStatusChange",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MaxStagesOfDevelopment",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MustSignBeforeStartBuilding",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotAssignedFreeLancer",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum GigSecured.Status",
+        "name": "currentStatus",
+        "type": "uint8"
+      }
+    ],
+    "name": "NotPendingStatus",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotPermitted",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotYetCompleted",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotYetReviewed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "RemissionFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TooSoonToDispute",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroAmount",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "creator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "freelancer",
+        "type": "address"
+      }
+    ],
+    "name": "GigContractCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "gigId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newDeadline",
+        "type": "uint256"
+      }
+    ],
+    "name": "GigDeadlineUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "gigId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "newFreelancerEmail",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newFreelancerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "GigFreelancerUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "gigId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum GigSecured.Status",
+        "name": "newStatus",
+        "type": "uint8"
+      }
+    ],
+    "name": "GigStatusUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_title",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_category",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_clientEmail",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_freelancerEmail",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_description",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_price",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_freelancer",
+        "type": "address"
+      }
+    ],
+    "name": "addGig",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "gigContract",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum GigSecured.Status",
+        "name": "newStatus",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "gigId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_joblink",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "ranD",
+        "type": "uint256"
+      }
+    ],
+    "name": "clientUpdateGig",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "success",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "gigId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "newCategory",
+        "type": "string"
+      }
+    ],
+    "name": "editGigCategory",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "gigId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "newDeadline",
+        "type": "uint256"
+      }
+    ],
+    "name": "editGigDeadline",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "gigId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "newDescription",
+        "type": "string"
+      }
+    ],
+    "name": "editGigDescription",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "gigId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "newTitle",
+        "type": "string"
+      }
+    ],
+    "name": "editGigTitle",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "gigId",
+        "type": "uint256"
+      }
+    ],
+    "name": "forceClosure",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "freelancer",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_freelancerSign",
+        "type": "bytes"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_gigContract",
+        "type": "uint256"
+      }
+    ],
+    "name": "freeLancerSign",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "success",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "gigId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum GigSecured.Status",
+        "name": "newStatus",
+        "type": "uint8"
+      },
+      {
+        "internalType": "string",
+        "name": "_joblink",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "ranD",
+        "type": "uint256"
+      }
+    ],
+    "name": "freeLancerUpdateGig",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllGigs",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "category",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "clientEmail",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "freelancerEmail",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "freeLancer",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes",
+            "name": "freelancerSign",
+            "type": "bytes"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "completedTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum GigSecured.Status",
+            "name": "_status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bool",
+            "name": "isAudit",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "auditor",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "price",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "creator",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "creationDate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "joblink",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct GigSecured.GigContract[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gigId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getGig",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "category",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "clientEmail",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "freelancerEmail",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "freeLancer",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes",
+            "name": "freelancerSign",
+            "type": "bytes"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "completedTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum GigSecured.Status",
+            "name": "_status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bool",
+            "name": "isAudit",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "auditor",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "price",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "creator",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "creationDate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "joblink",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct GigSecured.GigContract",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getGigsCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gigCount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "gigId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "freelancerPercent",
+        "type": "uint256"
+      }
+    ],
+    "name": "sendPaymentAfterAuditorSettle",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum GigSecured.Status",
+        "name": "_status",
+        "type": "uint8"
+      },
+      {
+        "internalType": "string",
+        "name": "joblink_",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "ran",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateGig",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
